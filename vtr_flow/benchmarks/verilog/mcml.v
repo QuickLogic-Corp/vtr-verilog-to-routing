@@ -1751,13 +1751,14 @@ assign const_zero = 1'b0;
 assign const_zero_data = 32'b00000000000000000000000000000000;
 assign dont_care_out = 32'b00000000000000000000000000000000;
 	
-dual_port_ram dpram1(	
+dual_port_ram_custom #(.AWIDTH(13), .DWIDTH(32), .DEPTH(8192) )
+dpram1(	
   .clk (clk),
   .we1(wren),
   .we2(const_zero),
   .data1(data),
   .data2(const_zero_data),
-  .out1(dont_care_out),
+  .out1(),
   .out2 (q),
   .addr1(wraddress),
   .addr2(rdaddress));
@@ -1786,13 +1787,14 @@ assign const_zero = 1'b0;
 assign const_zero_data = 32'b00000000000000000000000000000000;
 assign dont_care_out = 32'b00000000000000000000000000000000;
 	
-dual_port_ram dpram1(	
+dual_port_ram_custom #(.AWIDTH(13), .DWIDTH(32), .DEPTH(8192) )
+dpram1(	
   .clk (clk),
   .we1(wren),
   .we2(const_zero),
   .data1(data),
   .data2(const_zero_data),
-  .out1(dont_care_out),
+  .out1(),
   .out2 (q),
   .addr1(wraddress),
   .addr2(rdaddress));
@@ -1821,13 +1823,14 @@ assign const_zero = 1'b0;
 assign const_zero_data = 32'b00000000000000000000000000000000;
 assign dont_care_out = 32'b00000000000000000000000000000000;
 	
-dual_port_ram dpram1(	
+dual_port_ram_custom #(.AWIDTH(13), .DWIDTH(32), .DEPTH(8192) )
+dpram1(	
   .clk (clk),
   .we1(wren),
   .we2(const_zero),
   .data1(data),
   .data2(const_zero_data),
-  .out1(dont_care_out),
+  .out1(),
   .out2 (q),
   .addr1(wraddress),
   .addr2(rdaddress));
@@ -1856,13 +1859,14 @@ assign const_zero = 1'b0;
 assign const_zero_data = 32'b00000000000000000000000000000000;
 assign dont_care_out = 32'b00000000000000000000000000000000;
 	
-dual_port_ram dpram1(	
+dual_port_ram_custom #(.AWIDTH(13), .DWIDTH(32), .DEPTH(8192) )
+dpram1(	
   .clk (clk),
   .we1(wren),
   .we2(const_zero),
   .data1(data),
   .data2(const_zero_data),
-  .out1(dont_care_out),
+  .out1(),
   .out2 (q),
   .addr1(wraddress),
   .addr2(rdaddress));
@@ -1890,13 +1894,14 @@ assign const_zero = 1'b0;
 assign const_zero_data = 36'b000000000000000000000000000000000000;
 assign dont_care_out = 36'b000000000000000000000000000000000000;
 	
-dual_port_ram dpram1(	
+dual_port_ram_custom #(.AWIDTH(16), .DWIDTH(36), .DEPTH(65536) )
+dpram1(	
   .clk (clk),
   .we1(wren),
   .we2(const_zero),
   .data1(data),
   .data2(const_zero_data),
-  .out1(dont_care_out),
+  .out1(),
   .out2 (q),
   .addr1(wraddress),
   .addr2(rdaddress));
@@ -1924,13 +1929,14 @@ assign const_zero = 1'b0;
 assign const_zero_data = 18'b000000000000000000;
 assign dont_care_out = 18'b000000000000000000;
 	
-dual_port_ram dpram1(	
+dual_port_ram_custom #(.AWIDTH(16), .DWIDTH(18), .DEPTH(65536) )
+dpram1(	
   .clk (clk),
   .we1(wren),
   .we2(const_zero),
   .data1(data),
   .data2(const_zero_data),
-  .out1(dont_care_out),
+  .out1(),
   .out2 (q),
   .addr1(wraddress),
   .addr2(rdaddress));
@@ -1958,13 +1964,14 @@ assign const_zero = 1'b0;
 assign const_zero_data = 8'b00000000;
 assign dont_care_out = 8'b00000000;
 	
-dual_port_ram dpram1(	
+dual_port_ram_custom #(.AWIDTH(16), .DWIDTH(8), .DEPTH(65536) )
+dpram1(	
   .clk (clk),
   .we1(wren),
   .we2(const_zero),
   .data1(data),
   .data2(const_zero_data),
-  .out1(dont_care_out),
+  .out1(),
   .out2 (q),
   .addr1(wraddress),
   .addr2(rdaddress));
@@ -10426,7 +10433,7 @@ reg [`BIT_WIDTH - 1:0] log_x;
 //Log_mantissa u1(c_shifted_x, clock, mantissa);
 wire [31:0]blank;
 assign blank = 32'b000000000000000000000000000000;
-single_port_ram sram_replace0 (.clk (clock), .addr (c_shifted_x), .data (blank), .we (1'b0), .out (mantissa));
+single_port_ram_custom sram_replace0 (.clk (clock), .addr (c_shifted_x), .data (blank), .we (1'b0), .out (mantissa));
 
 // priority encoder
 //integer i;
@@ -18279,8 +18286,8 @@ output	[31:0]			cosp;
 //Instantiate a single port ram for odin
 wire [31:0]blank;
 assign blank = 32'b000000000000000000000000000000;
-single_port_ram sinp_replace(.clk (clock), .addr (pindex), .data (blank), .we (1'b0), .out (sinp));
-single_port_ram cosp_replace(.clk (clock), .addr (pindex), .data (blank), .we (1'b0), .out (cosp));
+single_port_ram_custom sinp_replace(.clk (clock), .addr (pindex), .data (blank), .we (1'b0), .out (sinp));
+single_port_ram_custom cosp_replace(.clk (clock), .addr (pindex), .data (blank), .we (1'b0), .out (cosp));
 
 			
 endmodule
@@ -24769,9 +24776,65 @@ module Sqrt_64b (clk, num_, res);
 			 res = res__32[31:0];
 		end
 		
-	end
-
-	
+	end	
 endmodule 	
 
+module single_port_ram_custom (
+	data, 
+  addr, 
+  we,
+  clk,
+	out
+);
+
+  input [31 :0] data;
+  input [9 :0] addr;
+  input we, clk;
+  output reg [31 :0] out;
+  
+	// Declare the RAM variable
+	reg [31:0] ram[9:0];
+	
+	// Port A
+	always @ (posedge clk)
+	begin
+		if (we) 
+			ram[addr] <= data;
+		out <= ram[addr];
+	end
+
+endmodule
+
+module dual_port_ram_custom #(parameter AWIDTH = 5,
+parameter DWIDTH = 32, parameter DEPTH = 32)
+(
+	data1, 
+  data2, 
+  addr1,
+  addr2,
+	we1,
+  we2,
+  clk,
+	out1,
+  out2
+);
+
+  input [DWIDTH-1 :0] data1,data2;
+  input [AWIDTH-1 :0] addr1, addr2;
+  input we1, we2, clk;
+  output reg [DWIDTH-1 :0] out2;
+  output [DWIDTH-1 :0] out1;
+  
+	// Declare the RAM variable
+	reg [DWIDTH-1 :0] ram[DEPTH-1 :0];
+	
+	// Port A
+	always @ (posedge clk)
+	begin
+		if (we1) 
+			ram[addr1] <= data1;
+		out2 <= ram[addr2];
+	end
+  assign out1 =0;
+endmodule
 
