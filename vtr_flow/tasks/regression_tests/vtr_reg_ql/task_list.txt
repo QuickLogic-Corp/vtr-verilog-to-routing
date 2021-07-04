@@ -1,0 +1,6 @@
+#regression_tests/vtr_reg_ql/titan_eblif_k4
+#regression_tests/vtr_reg_ql/titan_eblif_k6
+#regression_tests/vtr_reg_ql/vtr_eblif_k4
+regression_tests/vtr_reg_ql/vtr_benchmark_verilog
+
+
