@@ -17,4 +17,5 @@ num_clb;vpr.out;Netlist clb blocks:\s*(\d+)
 #num_memories;vpr.out;Netlist memory blocks:\s*(\d+)
 #num_mult;vpr.out;Netlist mult_36 blocks:\s*(\d+)
 min_chan_width;vpr.out;Best routing used a channel width factor of (\d+)
-crit_path_delay;vpr.crit_path.out;Final critical path delay \(least slack\): (.*) ns
+#crit_path_delay;vpr.crit_path.out;Final critical path delay \(least slack\): (.*) ns
+crit_path_delay;vpr.out;Final critical path delay \(least slack\): (.*) ns

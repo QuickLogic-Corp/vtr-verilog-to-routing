@@ -4,7 +4,7 @@
 ##############################################
 
 # Path to directory of circuits to use
-circuits_dir=benchmarks/ql_blif/titan/k6
+circuits_dir=benchmarks/ql_blif/vtr_benchmark/k6
 
 # Path to directory of architectures to use
 archs_dir=arch/QL
@@ -13,18 +13,10 @@ archs_dir=arch/QL
 sdc_dir=benchmarks/ql_blif/sdc
 
 # Add circuits to list to sweep
-circuit_list_add=system90.eblif
-circuit_list_add=system90_noadder.eblif
-circuit_list_add=system100.eblif
-circuit_list_add=system100_noadder.eblif
-circuit_list_add=smithwaterman.eblif
-circuit_list_add=smithwaterman_noadder.eblif
-circuit_list_add=wb_conmax_top.eblif
-circuit_list_add=wb_conmax_top_noadder.eblif
-circuit_list_add=CH_DFSIN.eblif
-circuit_list_add=CH_DFSIN_noadder.eblif
-circuit_list_add=gsm_sys.eblif
-circuit_list_add=gsm_sys_noadder.eblif
+circuit_list_add=LU32PEEng.eblif
+circuit_list_add=LU32PEEng_noadder.eblif
+circuit_list_add=mcml.eblif
+circuit_list_add=mcml_noadder.eblif
 
 # Add architectures to list to sweep
 arch_list_add=K6N10_FRACT_CLBI16_0.5C1.0F_1.0L4_HARDADDER_MEM16kSDP_DSP16x16MULTADD_GF12nm_vpr.xml
@@ -58,7 +50,6 @@ arch_list_add=K6N10_FRACT_CLBI48_1.0C1.0F_1.0L4_HARDADDER_MEM16kSDP_DSP16x16MULT
 arch_list_add=K6N10_FRACT_CLBI52_0.5C1.0F_1.0L4_HARDADDER_MEM16kSDP_DSP16x16MULTADD_GF12nm_vpr.xml
 arch_list_add=K6N10_FRACT_CLBI52_1.0C1.0F_1.0L4_HARDADDER_MEM16kSDP_DSP16x16MULTADD_GF12nm_vpr.xml
 
-
 # Parse info and how to parse
 parse_file=vpr_standard.txt
 
@@ -68,5 +59,5 @@ qor_parse_file=qor_standard.txt
 # Pass requirements
 pass_requirements_file=pass_requirements.txt
 
-script_params=-starting_stage vpr -track_memory_usage --timing_report_npaths 1000 --timing_report_detail detailed 
-#script_params=-starting_stage vpr -track_memory_usage --device "116x116" --route_chan_width 206 --max_router_iterations 400 --timing_report_npaths 1000 --timing_report_detail detailed 
+script_params=-starting_stage vpr -track_memory_usage
+#script_params=-starting_stage vpr -track_memory_usage --device "116x116" --route_chan_width 206 --max_router_iterations 400 --timing_report_npaths 1000 --timing_report_detail detailed

@@ -11,18 +11,48 @@ archs_dir=arch/QL
 
 # Add circuits to list to sweep
 #circuit_list_add=Top_PipelinedCipher.eblif
-circuit_list_add=system90.eblif
-circuit_list_add=system100.eblif
-circuit_list_add=CH_DFSIN.eblif
-circuit_list_add=murax.eblif
+#circuit_list_add=system90.eblif
+#circuit_list_add=system100.eblif
+#circuit_list_add=CH_DFSIN.eblif
+#circuit_list_add=murax.eblif
+#circuit_list_add=smithwaterman.eblif
+#circuit_list_add=wb_conmax_top.eblif
+#circuit_list_add=system90_noadder.eblif
+#circuit_list_add=system100_noadder.eblif
+#circuit_list_add=CH_DFSIN_noadder.eblif
+#circuit_list_add=gsm_sys_noadder.eblif
+#circuit_list_add=smithwaterman_noadder.eblif
+#circuit_list_add=wb_conmax_top_noadder.eblif
+circuit_list_add=system90_hardadder.eblif
+circuit_list_add=system100_hardadder.eblif
+circuit_list_add=gsm_sys_hardadder.eblif
+circuit_list_add=smithwaterman_hardadder.eblif
+circuit_list_add=wb_conmax_top_hardadder.eblif
+circuit_list_add=CH_DFSIN_hardadder.eblif
 
 # Add architectures to list to sweep
-arch_list_add=K4N8_I24_FC_Mem_DSP_UMC22nm_vpr.xml
-arch_list_add=K4N8_I20_FC_Mem_DSP_UMC22nm_vpr.xml
-arch_list_add=K4N8_I16_FC_Mem_DSP_UMC22nm_vpr.xml
-arch_list_add=K4N8_I24_HC_Mem_DSP_UMC22nm_vpr.xml
-arch_list_add=K4N8_I20_HC_Mem_DSP_UMC22nm_vpr.xml
-arch_list_add=K4N8_I16_HC_Mem_DSP_UMC22nm_vpr.xml
+arch_list_add=K4N10_FRACT_CLBI28_0.5C0.5F_0.8L4_0.2L1_HARDADDER_MEM16kSDP_DSP16x16MULTADD_UMC22nm_vpr.xml
+#arch_list_add=K4N10_FRACT_CLBI28_0.5C0.5F_0.8L4_0.2L1_SOFTADDER_MEM16kSDP_DSP16x16MULTADD_UMC22nm_vpr.xml
+#arch_list_add=K4N10_NONFRACT_CLBI16_0.5C0.5F_0.7L40.1L20.2L1_SOFTADDER_UMC22nm_vpr.xml
+#arch_list_add=K4N10_NONFRACT_CLBI18_1.0C1.0F_0.7L40.1L20.2L1_SOFTADDER_UMC22nm_vpr.xml
+#arch_list_add=K4N10_NONFRACT_CLBI24_0.5C0.5F_0.7L40.1L20.2L1_SOFTADDER_MEM16kSDP_DSP16x16MULTADD_UMC22nm_vpr.xml
+#arch_list_add=K4N10_NONFRACT_CLBI24_1.0C1.0F_0.7L40.1L20.2L1_SOFTADDER_MEM16kSDP_DSP16x16MULTADD_UMC22nm_vpr.xml
+#arch_list_add=K4N10_NONFRACT_CLBI24_1.0C1.0F_0.7L40.1L20.2L1_SOFTADDER_UMC22nm_vpr.xml
+#arch_list_add=K4N10_NONFRACT_CLBI28_0.5C0.5F_0.7L40.1L20.2L1_SOFTADDER_MEM16kSDP_DSP16x16MULTADD_UMC22nm_vpr.xml
+#arch_list_add=K4N10_NONFRACT_CLBI28_1.0C1.0F_0.7L40.1L20.2L1_SOFTADDER_MEM16kSDP_DSP16x16MULTADD_UMC22nm_vpr.xml
+#arch_list_add=K4N10_NONFRACT_CLBI28_1.0C1.0F_0.8L40.2L1_SOFTADDER_MEM16kSDP_DSP16x16MULTADD_UMC22nm_vpr.xml
+#arch_list_add=K4N10_NONFRACT_CLBI32_0.5C0.5F_0.7L40.1L20.2L1_SOFTADDER_MEM16kSDP_DSP16x16MULTADD_UMC22nm_vpr.xml
+#arch_list_add=K4N10_NONFRACT_CLBI32_1.0C1.0F_0.7L40.1L20.2L1_SOFTADDER_MEM16kSDP_DSP16x16MULTADD_UMC22nm_vpr.xml
+#arch_list_add=K4N10_NONFRACT_CLBI36_0.5C0.5F_0.7L40.1L20.2L1_SOFTADDER_MEM16kSDP_DSP16x16MULTADD_UMC22nm_vpr.xml
+#arch_list_add=K4N10_NONFRACT_CLBI36_1.0C1.0F_0.7L40.1L20.2L1_SOFTADDER_MEM16kSDP_DSP16x16MULTADD_UMC22nm_vpr.xml
+#arch_list_add=K4N8_NONFRACT_CLBI16_0.5C0.5F_0.7L40.1L20.2L1_SOFTADDER_MEM16kSDP_DSP16x16MULTADD_UMC22nm_vpr.xml
+#arch_list_add=K4N8_NONFRACT_CLBI16_1.0C1.0F_0.7L40.1L20.2L1_SOFTADDER_MEM16kSDP_DSP16x16MULTADD_UMC22nm_vpr.xml
+#arch_list_add=K4N8_NONFRACT_CLBI20_0.5C0.5F_0.7L40.1L20.2L1_SOFTADDER_MEM16kSDP_DSP16x16MULTADD_UMC22nm_vpr.xml
+#arch_list_add=K4N8_NONFRACT_CLBI20_1.0C1.0F_0.7L40.1L20.2L1_SOFTADDER_MEM16kSDP_DSP16x16MULTADD_UMC22nm_vpr.xml
+#arch_list_add=K4N8_NONFRACT_CLBI24_0.5C0.5F_0.7L40.1L20.2L1_SOFTADDER_MEM16kSDP_DSP16x16MULTADD_UMC22nm_vpr.xml
+#arch_list_add=K4N8_NONFRACT_CLBI24_0.5C0.5F_0.7L40.1L20.2L1_SOFTADDER_UMC22nm_vpr.xml
+#arch_list_add=K4N8_NONFRACT_CLBI24_1.0C1.0F_0.7L40.1L20.2L1_SOFTADDER_MEM16kSDP_DSP16x16MULTADD_UMC22nm_vpr.xml
+#arch_list_add=K4N8_NONFRACT_CLBI24_1.0C1.0F_0.7L40.1L20.2L1_SOFTADDER_UMC22nm_vpr.xml
 
 # Parse info and how to parse
 parse_file=vpr_standard.txt
@@ -33,5 +63,5 @@ qor_parse_file=qor_standard.txt
 # Pass requirements
 pass_requirements_file=pass_requirements.txt
 
-script_params=-starting_stage vpr -track_memory_usage
+script_params=-starting_stage vpr -track_memory_usage --timing_report_npaths 1000 --timing_report_detail detailed
 
