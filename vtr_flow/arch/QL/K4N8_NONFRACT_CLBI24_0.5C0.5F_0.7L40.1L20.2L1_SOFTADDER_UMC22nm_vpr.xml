@@ -289,10 +289,10 @@ Authors: Xifan Tang
       <equivalent_sites>
         <site pb_type="clb"/>
       </equivalent_sites>
-      <input name="I1" num_pins="4" equivalent="full"/>
-      <input name="I2" num_pins="4" equivalent="full"/>
-      <input name="I3" num_pins="4" equivalent="full"/>
-      <input name="I4" num_pins="4" equivalent="full"/>
+      <input name="I1" num_pins="6" equivalent="full"/>
+      <input name="I2" num_pins="6" equivalent="full"/>
+      <input name="I3" num_pins="6" equivalent="full"/>
+      <input name="I4" num_pins="6" equivalent="full"/>
       <input name="reg_in" num_pins="1"/>
       <input name="sc_in" num_pins="1"/>
       <input name="cin" num_pins="1"/>
@@ -315,8 +315,8 @@ Authors: Xifan Tang
       <!--pinlocations pattern="spread"/-->
       <pinlocations pattern="custom">
         <loc side="left">clb.clk clb.reset clb.lreset clb.preset</loc>
-        <loc side="top">clb.reg_in clb.sc_in clb.cin clb.O[7:0] clb.I1[3:0] clb.I2[3:0]</loc>
-        <loc side="right">clb.I3[3:0] clb.I4[3:0]</loc>
+        <loc side="top">clb.reg_in clb.sc_in clb.cin clb.O[7:0] clb.I1[5:0] clb.I2[5:0]</loc>
+        <loc side="right">clb.I3[5:0] clb.I4[5:0]</loc>
         <loc side="bottom">clb.reg_out clb.sc_out clb.cout</loc>
       </pinlocations>
     </sub_tile>
@@ -734,10 +734,10 @@ Authors: Xifan Tang
       So pin equivalence should be applied to the first 3 inputs only
     -->
     <pb_type name="clb">
-      <input name="I1" num_pins="4" equivalent="full"/>
-      <input name="I2" num_pins="4" equivalent="full"/>
-      <input name="I3" num_pins="4" equivalent="full"/>
-      <input name="I4" num_pins="4" equivalent="full"/>
+      <input name="I1" num_pins="6" equivalent="full"/>
+      <input name="I2" num_pins="6" equivalent="full"/>
+      <input name="I3" num_pins="6" equivalent="full"/>
+      <input name="I4" num_pins="6" equivalent="full"/>
       <input name="reg_in" num_pins="1"/>
       <input name="sc_in" num_pins="1"/>
       <input name="cin" num_pins="1"/>

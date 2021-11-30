@@ -1250,8 +1250,8 @@ Authors: Xifan Tang
           then the outputs those 6-LUTs take get evenly distributed across all four sides of the CLB instead of clumped on two sides (which is what happens with a more
           naive specification).
         -->
-        <direct name="clbouts1" input="fle[3:0].out" output="clb.O[3:0]"/>
-        <direct name="clbouts2" input="fle[7:4].out" output="clb.O[7:4]"/>
+        <direct name="clbouts1" input="fle[4:0].out" output="clb.O[4:0]"/>
+        <direct name="clbouts2" input="fle[9:5].out" output="clb.O[9:5]"/>
           <!-- Shift register chain links -->
         <direct name="shift_register_in" input="clb.reg_in" output="fle[0:0].reg_in">
           <pack_pattern name="shiftchain" in_port="clb.reg_in" out_port="fle[0:0].reg_in"/>
