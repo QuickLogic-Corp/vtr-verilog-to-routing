@@ -234,7 +234,10 @@
       <equivalent_sites>
         <site pb_type="clb"/>
       </equivalent_sites>
-      <input name="I" num_pins="52" equivalent="full"/>
+      <input name="I0" num_pins="10" equivalent="full"/>
+      <input name="I1" num_pins="10" equivalent="full"/>
+      <input name="I2" num_pins="10" equivalent="full"/>
+      <input name="I3" num_pins="10" equivalent="full"/>
       <input name="sc_in" num_pins="1"/>
       <input name="cin" num_pins="1"/>
       <input name="cin_trick" num_pins="1"/>
@@ -265,8 +268,8 @@
       <pinlocations pattern="custom">
         <loc side="left"></loc>
         <loc side="top">clb.sc_in clb.cin clb.cin_trick clb.regin clb.clk clb.set[9:0] clb.reset[9:0] clb.enable[9:0]</loc>
-        <loc side="right">clb.I[25:0] clb.O[9:0]</loc>
-        <loc side="bottom">clb.cout clb.cout_copy clb.sc_out clb.regout clb.I[51:26] clb.O[19:10]</loc>
+        <loc side="right">clb.I0[9:0] clb.I1[9:0] clb.O[9:0]</loc>
+        <loc side="bottom">clb.cout clb.cout_copy clb.sc_out clb.regout clb.I2[9:0] clb.I3[9:0] clb.O[19:10]</loc>
       </pinlocations>
 	</sub_tile>
     </tile>
@@ -342,16 +345,29 @@
   <switchlist>
     <switch type="mux" name="0" R="0" Cin="0" Cout="0" Tdel="200e-12" mux_trans_size="2.630740" buf_size="27.645901"/>
     <switch type="mux" name="ipin_cblock" R="0." Cout="0." Cin="0" Tdel="210e-12" mux_trans_size="1.222260" buf_size="auto"/>
-    <switch type="mux" name="L1_mux" R="0." Cin=".77e-15" Cout="0." Tdel="2.71e-10" mux_trans_size="2.630740" buf_size="27.645901"/>
-    <switch type="mux" name="L2_mux" R="0." Cin=".77e-15" Cout="0." Tdel="1.72e-10" mux_trans_size="2.630740" buf_size="27.645901"/>
-    <switch type="mux" name="L4_mux" R="0." Cin=".77e-15" Cout="0." Tdel="3.96e-10" mux_trans_size="2.630740" buf_size="27.645901"/>
-    <switch type="mux" name="L8_mux" R="0." Cin=".77e-15" Cout="0." Tdel="2.50e-10" mux_trans_size="2.630740" buf_size="27.645901"/>
-    <switch type="mux" name="L16_mux" R="0." Cin=".77e-15" Cout="0." Tdel="3.00e-10" mux_trans_size="2.630740" buf_size="27.645901"/>
+    <switch type="mux" name="L1_mux" R="0." Cin=".77e-15" Cout="0." Tdel="1.48e-10" mux_trans_size="2.630740" buf_size="27.645901"/>
+    <switch type="mux" name="L2_mux" R="0." Cin=".77e-15" Cout="0." Tdel="1.72-10" mux_trans_size="2.630740" buf_size="27.645901"/>
+    <switch type="mux" name="L4_mux" R="0." Cin=".77e-15" Cout="0." Tdel="2.00e-10" mux_trans_size="2.630740" buf_size="27.645901"/>
   </switchlist>
   <segmentlist>
     <!-- GIVE a specific name for the segment! OpenFPGA appreciate that! -->
     <!-- Uni-directional routing architecture using only length-4 wires in routing channels -->
-    <segment name="L4" freq="1.000000" length="4" type="unidir" Rmetal="0" Cmetal="0">
+    <!--segment name="L4" freq="1.000000" length="4" type="unidir" Rmetal="0" Cmetal="0">
+      <mux name="0"/>
+      <sb type="pattern">1 1 1 1 1</sb>
+      <cb type="pattern">1 1 1 1</cb>
+    </segment-->
+    <segment name="L1" freq="0.10" length="1" type="unidir" Rmetal="0" Cmetal="0">
+      <mux name="L1_mux"/>
+      <sb type="pattern">1 1</sb>
+      <cb type="pattern">1</cb>
+    </segment>
+    <!--segment name="L2" freq="0.10" length="2" type="unidir" Rmetal="0" Cmetal="0">
+      <mux name="L2_mux"/>
+      <sb type="pattern">1 1 1</sb>
+      <cb type="pattern">1 1</cb>
+    </segment-->
+    <segment name="L4" freq="0.90" length="4" type="unidir" Rmetal="0" Cmetal="0">
       <mux name="L4_mux"/>
       <sb type="pattern">1 1 1 1 1</sb>
       <cb type="pattern">1 1 1 1</cb>
@@ -428,7 +444,10 @@
          - depop50: every local routing multiplexer accesses to 50% of the CLB inputs
       -->
     <pb_type name="clb">
-      <input name="I" num_pins="52" equivalent="full"/>
+      <input name="I0" num_pins="10" equivalent="full"/>
+      <input name="I1" num_pins="10" equivalent="full"/>
+      <input name="I2" num_pins="10" equivalent="full"/>
+      <input name="I3" num_pins="10" equivalent="full"/>
       <input name="sc_in" num_pins="1"/>
       <input name="cin" num_pins="1"/>
       <input name="cin_trick" num_pins="1"/>
@@ -584,11 +603,11 @@
 			52e-12
 		    But due to VPR limitations, we average the timing on each LUT input in the delay matrix. -->
                     <delay_matrix type="max" in_port="lut5.in" out_port="lut5.out">
-                        280e-12
-                        280e-12
-                        280e-12
-                        280e-12
-                        280e-12
+                        110e-12
+                        110e-12
+                        110e-12
+                        110e-12
+                        110e-12
                     </delay_matrix>
                   </pb_type>
            <pb_type name="ff"  num_pb="1">
@@ -827,10 +846,10 @@
                     <output name="out" num_pins="1" port_class="lut_out"/>
                     <!-- LUT timing using delay matrix -->
                     <delay_matrix type="max" in_port="lut4.in" out_port="lut4.out">
-                        280e-12
-                        280e-12
-                        280e-12
-                        280e-12
+                        97e-12
+                        97e-12
+                        97e-12
+                        97e-12
                     </delay_matrix>
                   </pb_type>
 		<!-- Delay extracted from Frog PnR timing analysis -->
@@ -929,12 +948,12 @@
               <output name="lut6_out" num_pins="1" port_class="lut_out"/>
               <!-- LUT timing using delay matrix -->
 	      <delay_matrix type="max" in_port="lut6.in" out_port="lut6.lut6_out">
-                  280e-12
-                  280e-12
-                  280e-12
-                  280e-12
-                  280e-12
-                  280e-12
+                  128e-12
+                  128e-12
+                  128e-12
+                  128e-12
+                  128e-12
+                  128e-12
               </delay_matrix>
             </pb_type>
            <pb_type name="ff"  num_pb="1">
@@ -1179,9 +1198,29 @@
        <!-- Define shift_register mode end -->
       </pb_type>
       <interconnect>
-        <complete name="crossbar" input="clb.I fle[9:0].out" output="fle[9:0].in">
-          <delay_constant max="249e-12" in_port="clb.I" out_port="fle[9:0].in" />
-          <delay_constant max="249e-12" in_port="fle[9:0].out"  out_port="fle[9:0].in" />
+        <complete name="crossbar0" input="clb.I0 clb.I3 fle[9:0].out" output="fle[9:0].in[0]">
+          <delay_constant max="249e-12" in_port="clb.I0 clb.I3" out_port="fle[9:0].in[0]" />
+          <delay_constant max="249e-12" in_port="fle[9:0].out"  out_port="fle[9:0].in[0]" />
+        </complete>
+        <complete name="crossbar1" input="clb.I1 clb.I2 fle[9:0].out" output="fle[9:0].in[1]">
+          <delay_constant max="249e-12" in_port="clb.I1 clb.I2" out_port="fle[9:0].in[1]" />
+          <delay_constant max="249e-12" in_port="fle[9:0].out"  out_port="fle[9:0].in[1]" />
+        </complete>
+        <complete name="crossbar2" input="clb.I0 clb.I2 fle[9:0].out" output="fle[9:0].in[2]">
+          <delay_constant max="249e-12" in_port="clb.I0 clb.I2" out_port="fle[9:0].in[2]" />
+          <delay_constant max="249e-12" in_port="fle[9:0].out"  out_port="fle[9:0].in[2]" />
+        </complete>
+        <complete name="crossbar3" input="clb.I1 clb.I3 fle[9:0].out" output="fle[9:0].in[3]">
+          <delay_constant max="249e-12" in_port="clb.I1 clb.I3" out_port="fle[9:0].in[3]" />
+          <delay_constant max="249e-12" in_port="fle[9:0].out"  out_port="fle[9:0].in[3]" />
+        </complete>
+        <complete name="crossbar4" input="clb.I0 clb.I3 fle[9:0].out" output="fle[9:0].in[4]">
+          <delay_constant max="249e-12" in_port="clb.I0 clb.I3" out_port="fle[9:0].in[4]" />
+          <delay_constant max="249e-12" in_port="fle[9:0].out"  out_port="fle[9:0].in[4]" />
+        </complete>
+        <complete name="crossbar5" input="clb.I1 clb.I2 fle[9:0].out" output="fle[9:0].in[5]">
+          <delay_constant max="249e-12" in_port="clb.I1 clb.I2" out_port="fle[9:0].in[5]" />
+          <delay_constant max="249e-12" in_port="fle[9:0].out"  out_port="fle[9:0].in[5]" />
         </complete>
         <complete name="clks"     input="clb.clk"                            output="fle[9:0].clk"/>
         <complete name="set"      input="clb.set[9:0]"                       output="fle[9:0].set"/>
@@ -1198,10 +1237,10 @@
           <pack_pattern name="chain" in_port="clb.cin" out_port="fle[0:0].cin"/>
         </direct-->
         <direct name="clbouts1" input="fle[9:0].out[0:0]" output="clb.O[9:0]">
-          <!--delay_constant max="249e-12" in_port="fle[9:0].out[0:0]" out_port="clb.O[9:0]"/-->
+          <delay_constant max="249e-12" in_port="fle[9:0].out[0:0]" out_port="clb.O[9:0]"/>
         </direct>
         <direct name="clbouts2" input="fle[9:0].out[1:1]" output="clb.O[19:10]">
-          <!--delay_constant max="249e-12" in_port="fle[9:0].out[1:1]" out_port="clb.O[19:10]"/-->
+          <delay_constant max="249e-12" in_port="fle[9:0].out[1:1]" out_port="clb.O[19:10]"/>
         </direct>
         <direct name="cout_copy" input="fle[9:9].cout" output="clb.cout_copy"/>
         <!-- Shift register links -->
@@ -1364,7 +1403,7 @@
     </pb_type>
     <!-- Define QL_DSP end -->
   </complexblocklist>
-  <layout>
+<layout>
     <auto_layout aspect_ratio="1.0">
       <!--Perimeter of 'io' blocks with 'EMPTY' blocks at corners-->
       <perimeter type="io" priority="100"/>
@@ -1380,20 +1419,6 @@
       <col type="EMPTY"   startx="8"  starty="1" repeatx="14" priority="19"/>
     </auto_layout>
     <fixed_layout name="128x128" width="130" height="130">
-      <!--Perimeter of 'io' blocks with 'EMPTY' blocks at corners-->
-      <perimeter type="io" priority="100"/>
-      <corners type="EMPTY" priority="101"/>
-      <!--Fill with 'clb'-->
-      <fill type="clb" priority="10"/>
-      <!--Column of 'memory' with 'EMPTY' blocks wherever a 'memory' does not fit. Vertical offset by 1 for perimeter.-->
-      <!--CLB / Memory block ratio is 30. -->
-      <col type="memory"  startx="2"  starty="1" repeatx="14" priority="20"/>
-      <col type="EMPTY"   startx="2"  starty="1" repeatx="14" priority="19"/>
-      <!--Column of 'DSP' with 'EMPTY' blocks wherever a 'DSP' does not fit. Vertical offset by 1 for perimeter.-->
-      <col type="QL_DSP" startx="8"  starty="1" repeatx="14" priority="20"/>
-      <col type="EMPTY"   startx="8"  starty="1" repeatx="14" priority="19"/>
-    </fixed_layout>
-    <fixed_layout name="116x116" width="118" height="118">
       <!--Perimeter of 'io' blocks with 'EMPTY' blocks at corners-->
       <perimeter type="io" priority="100"/>
       <corners type="EMPTY" priority="101"/>

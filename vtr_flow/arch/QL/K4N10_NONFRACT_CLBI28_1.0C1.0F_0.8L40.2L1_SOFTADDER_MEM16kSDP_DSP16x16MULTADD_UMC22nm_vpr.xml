@@ -329,10 +329,7 @@ Authors: Xifan Tang
       <equivalent_sites>
         <site pb_type="clb"/>
       </equivalent_sites>
-      <input name="I1" num_pins="7" equivalent="full"/>
-      <input name="I2" num_pins="7" equivalent="full"/>
-      <input name="I3" num_pins="7" equivalent="full"/>
-      <input name="I4" num_pins="7" equivalent="full"/>
+      <input name="I" num_pins="28" equivalent="full"/>
       <input name="reg_in" num_pins="1"/>
       <input name="sc_in" num_pins="1"/>
       <input name="cin" num_pins="1"/>
@@ -355,8 +352,8 @@ Authors: Xifan Tang
       <!--pinlocations pattern="spread"/-->
       <pinlocations pattern="custom">
         <loc side="left">clb.clk clb.reset clb.lreset clb.preset</loc>
-        <loc side="top">clb.reg_in clb.sc_in clb.cin clb.O[9:0] clb.I1[6:0] clb.I2[6:0]</loc>
-        <loc side="right">clb.I3[6:0] clb.I4[6:0]</loc>
+        <loc side="top">clb.reg_in clb.sc_in clb.cin clb.O[9:0] clb.I[13:0]</loc>
+        <loc side="right">clb.I[27:14]</loc>
         <loc side="bottom">clb.reg_out clb.sc_out clb.cout</loc>
       </pinlocations>
     </sub_tile>
@@ -827,10 +824,7 @@ Authors: Xifan Tang
       So pin equivalence should be applied to the first 3 inputs only
     -->
     <pb_type name="clb">
-      <input name="I1" num_pins="7" equivalent="full"/>
-      <input name="I2" num_pins="7" equivalent="full"/>
-      <input name="I3" num_pins="7" equivalent="full"/>
-      <input name="I4" num_pins="7" equivalent="full"/>
+      <input name="I" num_pins="28" equivalent="full"/>
       <input name="reg_in" num_pins="1"/>
       <input name="sc_in" num_pins="1"/>
       <input name="cin" num_pins="1"/>
@@ -1330,30 +1324,9 @@ Authors: Xifan Tang
           in[2]. Such twisted connection is not expected.
           I[0] should be connected to in[0]
         -->
-        <complete name="crossbar1" input="clb.I4 clb.I2 fle[1:0].out fle[2:3].out" output="fle[9:0].in[0:0]">
-          <delay_constant max="2.48e-10" min="1.64e-10" in_port="clb.I4" out_port="fle[9:0].in[0:0]"/>
-          <delay_constant max="2.48e-10" min="1.64e-10" in_port="clb.I2" out_port="fle[9:0].in[0:0]"/>
-          <delay_constant max="2.34e-10" min="1.86e-10" in_port="fle[1:0].out" out_port="fle[9:0].in[0:0]"/>
-          <delay_constant max="2.34e-10" min="1.86e-10" in_port="fle[2:3].out" out_port="fle[9:0].in[0:0]"/>
-        </complete>
-        <complete name="crossbar2" input="clb.I3 clb.I2 fle[2:3].out fle[4:5].out" output="fle[9:0].in[1:1]">
-          <delay_constant max="2.48e-10" min="1.64e-10" in_port="clb.I3" out_port="fle[9:0].in[1:1]"/>
-          <delay_constant max="2.48e-10" min="1.64e-10" in_port="clb.I2" out_port="fle[9:0].in[1:1]"/>
-          <delay_constant max="2.34e-10" min="1.86e-10" in_port="fle[2:3].out" out_port="fle[9:0].in[1:1]"/>
-          <delay_constant max="2.34e-10" min="1.86e-10" in_port="fle[4:5].out" out_port="fle[9:0].in[1:1]"/>
-        </complete>
-        <complete name="crossbar3" input="clb.I3 clb.I1 fle[4:5].out fle[6:7].out" output="fle[9:0].in[2:2]">
-          <delay_constant max="2.48e-10" min="1.64e-10" in_port="clb.I2" out_port="fle[9:0].in[2:2]"/>
-          <delay_constant max="2.48e-10" min="1.64e-10" in_port="clb.I1" out_port="fle[9:0].in[2:2]"/>
-          <delay_constant max="2.34e-10" min="1.86e-10" in_port="fle[4:5].out" out_port="fle[9:0].in[2:2]"/>
-          <delay_constant max="2.34e-10" min="1.86e-10" in_port="fle[6:7].out" out_port="fle[9:0].in[2:2]"/>
-        </complete>
-        <complete name="crossbar4" input="clb.I4 clb.I1 fle[6:7].out fle[8:9].out" output="fle[9:0].in[3:3]">
-          <delay_constant max="2.48e-10" min="1.64e-10" in_port="clb.I4" out_port="fle[9:0].in[3:3]"/>
-          <delay_constant max="2.48e-10" min="1.64e-10" in_port="clb.I1" out_port="fle[9:0].in[3:3]"/>
-          <delay_constant max="2.34e-10" min="1.86e-10" in_port="fle[1:0].out" out_port="fle[9:0].in[3:3]"/>
-          <delay_constant max="2.34e-10" min="1.86e-10" in_port="fle[6:7].out" out_port="fle[9:0].in[3:3]"/>
-            <!-- TODO: Timing should be backannotated from post-PnR results -->
+        <complete name="crossbar" input="clb.I fle[9:0].out" output="fle[9:0].in">
+          <delay_constant max="2.48e-10" min="1.64e-10" in_port="clb.I" out_port="fle[9:0].in"/>
+          <delay_constant max="2.34e-10" min="1.86e-10" in_port="fle[9:0].out" out_port="fle[9:0].in"/>
         </complete>
         <complete name="clks" input="clb.clk" output="fle[9:0].clk">
           <delay_constant max="1.923e-09" min="1.59e-09" in_port="clb.clk[0]" out_port="fle[9:0].clk"/>
