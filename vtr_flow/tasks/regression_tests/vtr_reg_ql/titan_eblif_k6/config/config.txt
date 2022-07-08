@@ -23,8 +23,8 @@ circuit_list_add=wb_conmax_top.eblif
 circuit_list_add=wb_conmax_top_noadder.eblif
 circuit_list_add=CH_DFSIN.eblif
 circuit_list_add=CH_DFSIN_noadder.eblif
-circuit_list_add=gsm_sys.eblif
-circuit_list_add=gsm_sys_noadder.eblif
+#circuit_list_add=gsm_sys.eblif
+#circuit_list_add=gsm_sys_noadder.eblif
 
 # Add architectures to list to sweep
 arch_list_add=K6N10_FRACT_CLBI16_0.5C1.0F_1.0L4_HARDADDER_MEM16kSDP_DSP16x16MULTADD_GF12nm_vpr.xml
