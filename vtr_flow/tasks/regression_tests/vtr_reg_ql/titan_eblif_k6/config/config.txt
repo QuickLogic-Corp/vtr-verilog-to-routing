@@ -37,8 +37,20 @@ archs_dir=arch/QL
 #circuit_list_add=system90_softadder_BRAM.eblif
 #circuit_list_add=system100_softadder_BRAM.eblif
 #circuit_list_add=CH_DFSIN_softadder_BRAM.eblif
-#circuit_list_add=wb_conmax_top_castor.eblif
+circuit_list_add=wb_conmax_top_castor.eblif
 circuit_list_add=smithwaterman_castor.eblif
+#circuit_list_add=system90.eblif
+#circuit_list_add=system90_noadder.eblif
+#circuit_list_add=system100.eblif
+#circuit_list_add=system100_noadder.eblif
+#circuit_list_add=smithwaterman.eblif
+#circuit_list_add=smithwaterman_noadder.eblif
+#circuit_list_add=wb_conmax_top.eblif
+#circuit_list_add=wb_conmax_top_noadder.eblif
+#circuit_list_add=CH_DFSIN.eblif
+#circuit_list_add=CH_DFSIN_noadder.eblif
+#circuit_list_add=gsm_sys.eblif
+#circuit_list_add=gsm_sys_noadder.eblif
 
 # Add architectures to list to sweep
 arch_list_add=castor_vpr.xml
