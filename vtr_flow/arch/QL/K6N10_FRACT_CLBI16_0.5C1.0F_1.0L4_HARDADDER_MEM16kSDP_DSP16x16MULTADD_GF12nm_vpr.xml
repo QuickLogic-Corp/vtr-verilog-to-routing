@@ -6,17 +6,17 @@
   - Columns of QL_DSP are interspaced with CLB columns, with one QL_DSP column per BRAM column.
   - Delay numbers are extracted from a 12 nm technology
     Process corner: TT 0.8V
-  
+
   Author: Xifan Tang, Aurelien Alacchi, Ganesh Gore and Samy Charas
 -->
 <architecture>
-  <!-- 
-       ODIN II specific config begins 
-       Describes the types of user-specified netlist blocks (in blif, this corresponds to 
+  <!--
+       ODIN II specific config begins
+       Describes the types of user-specified netlist blocks (in blif, this corresponds to
        ".model [type_of_block]") that this architecture supports.
 
-       Note: Basic LUTs, I/Os, and flip-flops are not included here as there are 
-       already special structures in blif (.names, .input, .output, and .latch) 
+       Note: Basic LUTs, I/Os, and flip-flops are not included here as there are
+       already special structures in blif (.names, .input, .output, and .latch)
        that describe them.
   -->
   <models>
@@ -47,7 +47,7 @@
       </input_ports>
       <output_ports>
         <port name="lut4_out"/>
-        <port name="lut5_out"/>
+	<port name="lut5_out"/>
         <port name="lut6_out"/>
       </output_ports>
     </model>
@@ -158,7 +158,7 @@
         <port name="Q" clock="clk"/>
       </output_ports>
     </model>
-    <!-- Flipflop models definition ends       -->
+    <!-- Flipflop models definition ends       --> 
     <!-- Dual port ram model definition starts -->
     <model name="DP_RAM16K">
       <input_ports>
@@ -198,16 +198,16 @@
         <port name="O"/>
       </output_ports>
     </model>
-    <!-- QL_DSP model definition ends -->
+    <!-- QL_DSP model definition ends --> 
   </models>
   <tiles>
-    <!-- Each I/O tile includes a GPIO --> 
-    <!-- IOs go on the periphery of the FPGA, for consistency, 
+    <!-- Each I/O tile includes a GPIO -->
+    <!-- IOs go on the periphery of the FPGA, for consistency,
          make it physically equivalent on all sides so that only one definition of I/Os is needed.
          If I do not make a physically equivalent definition, then I need to define 4 different I/Os, one for each side of the FPGA
-      -->
+    -->
     <tile name="io" area="0">
-	<sub_tile name="io" capacity="8">
+        <sub_tile name="io" capacity="8">
       <equivalent_sites>
         <site pb_type="io"/>
       </equivalent_sites>
@@ -222,8 +222,8 @@
         <loc side="top">io.outpad io.inpad</loc>
         <loc side="right">io.outpad io.inpad</loc>
         <loc side="bottom">io.outpad io.inpad</loc>
-      </pinlocations>    
-	</sub_tile>
+      </pinlocations>
+        </sub_tile>
     </tile>
     <!-- Each CLB tile includes a Configurable Logic Block (CLB)
          Each input of the tile can be driven by 15% of routing tracks
@@ -253,9 +253,9 @@
       <clock name="clk" num_pins="1"/>
       <!-- Each input of the tile can be driven by 15% of routing tracks
            Each output of the tile can drive 10% of routing tracks
-           There are two pins (sc_in, sc_out) has not connection 
+           There are two pins (sc_in, sc_out) has not connection
            to routing tracks. There are directed wired from/to adjacent CLBs
-        -->
+      -->
       <fc in_type="frac" in_val="0.15" out_type="frac" out_val="0.15">
         <fc_override port_name="sc_in" fc_type="frac" fc_val="0"/>
         <fc_override port_name="sc_out" fc_type="frac" fc_val="0"/>
@@ -264,18 +264,18 @@
       <!-- To ensure best tileable routing architecture (minimize the number of unique SBs
            We keep all the pins that touch routing architecture on the right and bottom sides of the tile
            Top side pins are mainly for direct connections
-        -->
+      -->
       <pinlocations pattern="custom">
         <loc side="left"></loc>
         <loc side="top">clb.sc_in clb.cin clb.cin_trick clb.regin clb.clk clb.set[9:0] clb.reset[9:0] clb.enable[9:0]</loc>
         <loc side="right">clb.I0[3:0] clb.I1[3:0] clb.O[9:0]</loc>
         <loc side="bottom">clb.cout clb.cout_copy clb.sc_out clb.regout clb.I2[3:0] clb.I3[3:0] clb.O[19:10]</loc>
       </pinlocations>
-	</sub_tile>
+        </sub_tile>
     </tile>
     <tile name="memory" height="2" area="548000">
-	<sub_tile name="memory">
-	<equivalent_sites>
+        <sub_tile name="memory">
+      <equivalent_sites>
         <site pb_type="memory"/>
       </equivalent_sites>
       <input name="waddr" num_pins="9"/>
@@ -294,10 +294,10 @@
         <loc side="right">memory.waddr memory.d_in[15:0] memory.wen memory.d_out[15:0] memory.wenb[15:0]</loc>
         <loc side="bottom">memory.raddr memory.d_in[31:16] memory.ren memory.d_out[31:16] memory.wenb[31:16]</loc>
       </pinlocations>
-	</sub_tile>
+        </sub_tile>
     </tile>
     <tile name="QL_DSP" height="2" area="396000">
-	<sub_tile name="QL_DSP">
+        <sub_tile name="QL_DSP">
       <equivalent_sites>
         <site pb_type="QL_DSP" pin_mapping="direct"/>
       </equivalent_sites>
@@ -317,12 +317,12 @@
         <loc side="right">QL_DSP.o[31:0] QL_DSP.co</loc>
         <loc side="bottom"></loc>
       </pinlocations>
-	</sub_tile>
+        </sub_tile>
     </tile>
   </tiles>
-  <!-- ODIN II specific config ends -->
-  <!-- Physical descriptions begin -->
-  <!-- Apply tileable routing architecture.
+    <!-- ODIN II specific config ends -->
+    <!-- Physical descriptions begin -->
+    <!-- Apply tileable routing architecture.
        This is strongly recommended if you want to PnR large FPGA fabric
     -->
   <device>
@@ -345,12 +345,17 @@
   <switchlist>
     <switch type="mux" name="0" R="0" Cin="0" Cout="0" Tdel="200e-12" mux_trans_size="2.630740" buf_size="27.645901"/>
     <switch type="mux" name="ipin_cblock" R="0." Cout="0." Cin="0" Tdel="210e-12" mux_trans_size="1.222260" buf_size="auto"/>
+    <switch type="mux" name="L1_mux" R="0." Cin=".77e-15" Cout="0." Tdel="2.71e-10" mux_trans_size="2.630740" buf_size="27.645901"/>
+    <switch type="mux" name="L2_mux" R="0." Cin=".77e-15" Cout="0." Tdel="1.72e-10" mux_trans_size="2.630740" buf_size="27.645901"/>
+    <switch type="mux" name="L4_mux" R="0." Cin=".77e-15" Cout="0." Tdel="3.96e-10" mux_trans_size="2.630740" buf_size="27.645901"/>
+    <switch type="mux" name="L8_mux" R="0." Cin=".77e-15" Cout="0." Tdel="2.50e-10" mux_trans_size="2.630740" buf_size="27.645901"/>
+    <switch type="mux" name="L16_mux" R="0." Cin=".77e-15" Cout="0." Tdel="3.00e-10" mux_trans_size="2.630740" buf_size="27.645901"/>
   </switchlist>
   <segmentlist>
     <!-- GIVE a specific name for the segment! OpenFPGA appreciate that! -->
     <!-- Uni-directional routing architecture using only length-4 wires in routing channels -->
     <segment name="L4" freq="1.000000" length="4" type="unidir" Rmetal="0" Cmetal="0">
-      <mux name="0"/>
+      <mux name="L4_mux"/>
       <sb type="pattern">1 1 1 1 1</sb>
       <cb type="pattern">1 1 1 1</cb>
     </segment>
@@ -383,7 +388,7 @@
 
       <!-- IOs can operate as either inputs or outputs.
        Delays below come from Ian Kuon. They are small, so they should be interpreted as
-       the delays to and from registers in the I/O (and generally I/Os are registered 
+       the delays to and from registers in the I/O (and generally I/Os are registered
        today and that is when you timing analyze them).
        -->
       <mode name="inpad">
@@ -413,7 +418,7 @@
     <!-- Technical highlight:
          K6_frac_N10_I40_chain_shiftreg_depop50
          - K6_frac: Each Logic Element (LE) contains a fracturable 6 LUT,
-                    which can operate as one 6-LUT or two 5-LUTs or four 4-LUTs 
+                    which can operate as one 6-LUT or two 5-LUTs or four 4-LUTs
                     In addition to 6-LUT, each LE also includes two Flip-Flops
          - N10: every CLB consists of 10 LEs and a local routing architecture
          - I40: every CLB has 40 inputs
@@ -443,7 +448,7 @@
       <output name="cout_copy" num_pins="1"/>
       <output name="regout" num_pins="1"/>
       <clock name="clk" num_pins="1"/>
-
+	      
       <!-- Describe fracturable logic element -->
       <pb_type name="fle" num_pb="10">
         <input name="in" num_pins="6"/>
@@ -478,7 +483,7 @@
               <output name="lut4_out" num_pins="4"/>
               <output name="lut5_out" num_pins="2"/>
               <output name="lut6_out" num_pins="1"/>
-	      <delay_matrix type="max" in_port="frac_lut6.in" out_port="frac_lut6.lut6_out">
+              <delay_matrix type="max" in_port="frac_lut6.in" out_port="frac_lut6.lut6_out">
                   128e-12
                   128e-12
                   128e-12
@@ -543,7 +548,7 @@
             </mux>
           </interconnect>
         </mode>
-        <!-- Define physical mode begins -->
+        <!-- Define physical mode begins -->		
         <!-- Define n2_lut5 mode begins -->
         <mode name="n2_lut5" disable_packing="false">
           <pb_type name="lut5inter" num_pb="1">
@@ -567,9 +572,9 @@
               <mode name="blut5">
                 <pb_type name="flut5" num_pb="1">
                   <input name="in" num_pins="5"/>
-		  <input name="set" num_pins="1"/>
-		  <input name="reset" num_pins="1"/>
-		  <input name="enable" num_pins="1"/>
+                  <input name="set" num_pins="1"/>
+                  <input name="reset" num_pins="1"/>
+                  <input name="enable" num_pins="1"/>
                   <output name="out" num_pins="1"/>
                   <clock name="clk" num_pins="1"/>
                   <!-- Regular LUT mode -->
@@ -577,19 +582,19 @@
                     <input name="in" num_pins="5" port_class="lut_in"/>
                     <output name="out" num_pins="1" port_class="lut_out"/>
                     <!-- LUT timing using delay matrix -->
-		    <!-- The real timing per input is as follows : 
-			168e-12
-			139e-12
-			110e-12
-			81e-12
-			52e-12
-		    But due to VPR limitations, we average the timing on each LUT input in the delay matrix. -->
+                    <!-- The real timing per input is as follows :
+                        168e-12
+                        139e-12
+                        110e-12
+                        81e-12
+                        52e-12
+                    But due to VPR limitations, we average the timing on each LUT input in the delay matrix. -->
                     <delay_matrix type="max" in_port="lut5.in" out_port="lut5.out">
-                        110e-12
-                        110e-12
-                        110e-12
-                        110e-12
-                        110e-12
+                        280e-12
+                        280e-12
+                        280e-12
+                        280e-12
+                        280e-12
                     </delay_matrix>
                   </pb_type>
            <pb_type name="ff"  num_pb="1">
@@ -598,13 +603,13 @@
               <input name="R" num_pins="1"/>
               <input name="E" num_pins="1"/>
               <output name="Q" num_pins="1"/>
-	      <clock name="clk" num_pins="1"/>
+              <clock name="clk" num_pins="1"/>
               <mode name="LATCH">
                 <pb_type name="LATCH" blif_model=".latch" num_pb="1" class="flipflop">
                   <input name="D" num_pins="1" port_class="D"/>
                   <output name="Q" num_pins="1" port_class="Q"/>
                   <clock name="clk" num_pins="1" port_class="clock"/>
-		  <T_setup value="6.4e-11" port="LATCH.D" clock="clk"/>
+                  <T_setup value="6.4e-11" port="LATCH.D" clock="clk"/>
                   <T_hold value="1.3e-11" port="LATCH.D" clock="clk"/>
                   <T_clock_to_Q max="5.8e-11" port="LATCH.Q" clock="clk"/>
                 </pb_type>
@@ -797,9 +802,9 @@
                       <pack_pattern name="ble5" in_port="lut5.out" out_port="ff.D"/>
                     </direct>
                     <direct name="direct3" input="flut5.clk" output="ff.clk"/>
-		    <direct name="direct4" input="flut5.set" output="ff.S"/>
-		    <direct name="direct5" input="flut5.reset" output="ff.R"/>
-		    <direct name="direct6" input="flut5.enable" output="ff.E"/>
+                    <direct name="direct4" input="flut5.set" output="ff.S"/>
+                    <direct name="direct5" input="flut5.reset" output="ff.R"/>
+                    <direct name="direct6" input="flut5.enable" output="ff.E"/>
                     <mux name="mux1" input="ff.Q lut5.out" output="flut5.out">
                       <delay_constant max="61e-12" in_port="lut5.out" out_port="flut5.out" />
                       <delay_constant max="23e-12" in_port="ff.Q" out_port="flut5.out" />
@@ -814,7 +819,7 @@
                   <direct name="direct5" input="ble5.reset" output="flut5.reset"/>
                   <direct name="direct6" input="ble5.enable" output="flut5.enable"/>
                 </interconnect>
-              </mode>
+	      </mode>
               <mode name="arithmetic">
                 <pb_type name="arithmetic" num_pb="1">
                   <input name="in" num_pins="4"/>
@@ -828,13 +833,13 @@
                     <output name="out" num_pins="1" port_class="lut_out"/>
                     <!-- LUT timing using delay matrix -->
                     <delay_matrix type="max" in_port="lut4.in" out_port="lut4.out">
-                        97e-12
-                        97e-12
-                        97e-12
-                        97e-12
+                        280e-12
+                        280e-12
+                        280e-12
+                        280e-12
                     </delay_matrix>
                   </pb_type>
-		<!-- Delay extracted from Frog PnR timing analysis -->
+                <!-- Delay extracted from Frog PnR timing analysis -->
                   <pb_type name="adder" blif_model=".subckt adder" num_pb="1">
                     <input name="a" num_pins="1"/>
                     <input name="b" num_pins="1"/>
@@ -848,13 +853,13 @@
                     <delay_constant max="27e-12" in_port="adder.b"   out_port="adder.cout"/>
                     <delay_constant max="25e-12" in_port="adder.cin" out_port="adder.cout"/>
                   </pb_type>
-  		<pb_type name="ff" blif_model=".latch" num_pb="1" class="flipflop">
+                <pb_type name="ff" blif_model=".latch" num_pb="1" class="flipflop">
                     <input       name="D"   num_pins="1" port_class="D"/>
                     <output      name="Q"   num_pins="1" port_class="Q"/>
                     <clock       name="clk" num_pins="1" port_class="clock"/>
                     <T_setup    value="26e-12"  port="ff.D"   clock="clk"/>
                     <T_clock_to_Q max="46e-12"  port="ff.Q"   clock="clk"/>
-                </pb_type>		
+                </pb_type>
                   <interconnect>
                     <direct name="clock"       input="arithmetic.clk"     output="ff.clk"/>
                     <direct name="lut_in1"     input="arithmetic.in[3:0]" output="lut4[0:0].in[3:0]"/>
@@ -870,10 +875,10 @@
                     <direct name="carry_out"   input="adder.cout"         output="arithmetic.cout">
                       <pack_pattern name="chain" in_port="adder.cout"      out_port="arithmetic.cout"/>
                     </direct>
-                    <!-- Timing is extracted from the physical implementation 
+                    <!-- Timing is extracted from the physical implementation
                          The path from ff.Q to arithmetic.out consists of a routing multiplexer
                          The path from adder.sumout to arithmetic.out consists of two routing multiplexers
-                         One multiplexer connects from adder to ff.D 
+                         One multiplexer connects from adder to ff.D
                          Another connects from the ff.D to arithmetic.out
                       -->
                     <mux name="sumout" input="ff.Q adder.sumout" output="arithmetic.out">
@@ -882,7 +887,6 @@
                     </mux>
                   </interconnect>
                 </pb_type>
-
                 <interconnect>
                   <direct name="direct1"   input="ble5.in[3:0]"    output="arithmetic.in"/>
                   <direct name="carry_in"  input="ble5.cin"        output="arithmetic.cin"/>
@@ -890,18 +894,18 @@
                   <direct name="direct2"   input="ble5.clk"        output="arithmetic.clk"/>
                   <direct name="direct3"   input="arithmetic.out"  output="ble5.out"/>
                 </interconnect>
-              </mode>
+	    </mode>
             </pb_type>
-	    <interconnect>
+            <interconnect>
               <direct name="direct1"     input="lut5inter.in"     output="ble5[0:0].in"/>
               <direct name="direct2"     input="lut5inter.in"     output="ble5[1:1].in"/>
               <direct name="direct3"     input="ble5[1:0].out"    output="lut5inter.out"/>
               <direct name="carry_in"    input="lut5inter.cin"    output="ble5[0:0].cin"/>
               <direct name="carry_out"   input="ble5[1:1].cout"   output="lut5inter.cout"/>
               <direct name="carry_link"  input="ble5[0:0].cout"   output="ble5[1:1].cin"/>
-	      <complete name="set"       input="lut5inter.set"    output="ble5[1:0].set"/>
-	      <complete name="reset"     input="lut5inter.reset"  output="ble5[1:0].reset"/>
-	      <complete name="enable"    input="lut5inter.enable" output="ble5[1:0].enable"/>
+              <complete name="set"       input="lut5inter.set"    output="ble5[1:0].set"/>
+              <complete name="reset"     input="lut5inter.reset"  output="ble5[1:0].reset"/>
+              <complete name="enable"    input="lut5inter.enable" output="ble5[1:0].enable"/>
               <complete name="complete1" input="lut5inter.clk"    output="ble5[1:0].clk"/>
             </interconnect>
           </pb_type>
@@ -911,9 +915,9 @@
             <direct name="direct3"   input="fle.clk"        output="lut5inter.clk"/>
             <direct name="carry_in"  input="fle.cin"        output="lut5inter.cin"/>
             <direct name="carry_out" input="lut5inter.cout" output="fle.cout"/>
-	    <direct name="set"    input="fle.set"    output="lut5inter.set"/>
-	    <direct name="reset"  input="fle.reset"  output="lut5inter.reset"/>
-	    <direct name="enable" input="fle.enable" output="lut5inter.enable"/>
+            <direct name="set"    input="fle.set"    output="lut5inter.set"/>
+            <direct name="reset"  input="fle.reset"  output="lut5inter.reset"/>
+            <direct name="enable" input="fle.enable" output="lut5inter.enable"/>
           </interconnect>
         </mode>
         <!-- Define n2_lut5 mode ends -->
@@ -929,13 +933,13 @@
               <input name="in" num_pins="6" port_class="lut_in"/>
               <output name="lut6_out" num_pins="1" port_class="lut_out"/>
               <!-- LUT timing using delay matrix -->
-	      <delay_matrix type="max" in_port="lut6.in" out_port="lut6.lut6_out">
-                  128e-12
-                  128e-12
-                  128e-12
-                  128e-12
-                  128e-12
-                  128e-12
+              <delay_matrix type="max" in_port="lut6.in" out_port="lut6.lut6_out">
+                  280e-12
+                  280e-12
+                  280e-12
+                  280e-12
+                  280e-12
+                  280e-12
               </delay_matrix>
             </pb_type>
            <pb_type name="ff"  num_pb="1">
@@ -1120,7 +1124,7 @@
                 </interconnect>
               </mode>
             </pb_type>
-	    <interconnect>
+            <interconnect>
               <direct name="direct1" input="ble6.in" output="lut6[0:0].in"/>
               <direct name="direct2" input="lut6.lut6_out" output="ff.D">
                 <!-- Advanced user option that tells CAD tool to find LUT+FF pairs in netlist -->
@@ -1180,28 +1184,28 @@
        <!-- Define shift_register mode end -->
       </pb_type>
       <interconnect>
-        <complete name="crossbar0" input="clb.I2 clb.I3 fle[9:0].out" output="fle[9:0].in[0]">
-          <delay_constant max="249e-12" in_port="clb.I2 clb.I3" out_port="fle[9:0].in[0]" />
+        <complete name="crossbar0" input="clb.I0 clb.I3 fle[9:0].out" output="fle[9:0].in[0]">
+          <delay_constant max="249e-12" in_port="clb.I0 clb.I3" out_port="fle[9:0].in[0]" />
           <delay_constant max="249e-12" in_port="fle[9:0].out"  out_port="fle[9:0].in[0]" />
         </complete>
         <complete name="crossbar1" input="clb.I1 clb.I2 fle[9:0].out" output="fle[9:0].in[1]">
           <delay_constant max="249e-12" in_port="clb.I1 clb.I2" out_port="fle[9:0].in[1]" />
           <delay_constant max="249e-12" in_port="fle[9:0].out"  out_port="fle[9:0].in[1]" />
         </complete>
-        <complete name="crossbar2" input="clb.I0 clb.I1 fle[9:0].out" output="fle[9:0].in[2]">
-          <delay_constant max="249e-12" in_port="clb.I0 clb.I1" out_port="fle[9:0].in[2]" />
+        <complete name="crossbar2" input="clb.I0 clb.I2 fle[9:0].out" output="fle[9:0].in[2]">
+          <delay_constant max="249e-12" in_port="clb.I0 clb.I2" out_port="fle[9:0].in[2]" />
           <delay_constant max="249e-12" in_port="fle[9:0].out"  out_port="fle[9:0].in[2]" />
         </complete>
         <complete name="crossbar3" input="clb.I1 clb.I3 fle[9:0].out" output="fle[9:0].in[3]">
           <delay_constant max="249e-12" in_port="clb.I1 clb.I3" out_port="fle[9:0].in[3]" />
           <delay_constant max="249e-12" in_port="fle[9:0].out"  out_port="fle[9:0].in[3]" />
         </complete>
-        <complete name="crossbar4" input="clb.I0 clb.I2 fle[9:0].out" output="fle[9:0].in[4]">
-          <delay_constant max="249e-12" in_port="clb.I0 clb.I2" out_port="fle[9:0].in[4]" />
+        <complete name="crossbar4" input="clb.I0 clb.I3 fle[9:0].out" output="fle[9:0].in[4]">
+          <delay_constant max="249e-12" in_port="clb.I0 clb.I3" out_port="fle[9:0].in[4]" />
           <delay_constant max="249e-12" in_port="fle[9:0].out"  out_port="fle[9:0].in[4]" />
         </complete>
-        <complete name="crossbar5" input="clb.I0 clb.I3 fle[9:0].out" output="fle[9:0].in[5]">
-          <delay_constant max="249e-12" in_port="clb.I0 clb.I3" out_port="fle[9:0].in[5]" />
+        <complete name="crossbar5" input="clb.I1 clb.I2 fle[9:0].out" output="fle[9:0].in[5]">
+          <delay_constant max="249e-12" in_port="clb.I1 clb.I2" out_port="fle[9:0].in[5]" />
           <delay_constant max="249e-12" in_port="fle[9:0].out"  out_port="fle[9:0].in[5]" />
         </complete>
         <complete name="clks"     input="clb.clk"                            output="fle[9:0].clk"/>
@@ -1219,15 +1223,15 @@
           <pack_pattern name="chain" in_port="clb.cin" out_port="fle[0:0].cin"/>
         </direct-->
         <direct name="clbouts1" input="fle[9:0].out[0:0]" output="clb.O[9:0]">
-          <delay_constant max="249e-12" in_port="fle[9:0].out[0:0]" out_port="clb.O[9:0]"/>
+	  <!--delay_constant max="249e-12" in_port="fle[9:0].out[0:0]" out_port="clb.O[9:0]"/-->
         </direct>
         <direct name="clbouts2" input="fle[9:0].out[1:1]" output="clb.O[19:10]">
-          <delay_constant max="249e-12" in_port="fle[9:0].out[1:1]" out_port="clb.O[19:10]"/>
+          <!--delay_constant max="249e-12" in_port="fle[9:0].out[1:1]" out_port="clb.O[19:10]"/-->
         </direct>
         <direct name="cout_copy" input="fle[9:9].cout" output="clb.cout_copy"/>
         <!-- Shift register links -->
 <!--         <direct name="regin" input="clb.regin" output="fle[0:0].regin">
-          
+
           <delay_constant max="0e-9" in_port="clb.regin" out_port="fle[0:0].regin"/>
           <pack_pattern name="chain" in_port="clb.regin" out_port="fle[0:0].regin"/>
         </direct>
@@ -1254,7 +1258,7 @@
       </interconnect>
     </pb_type>
     <!-- Define general purpose logic block (CLB) ends -->
-<!-- Define single-mode dual-port memory begin -->
+    <!-- Define single-mode dual-port memory begin -->
     <pb_type name="memory">
       <input  name="waddr" num_pins="9"/>
       <input  name="raddr" num_pins="9"/>
@@ -1278,12 +1282,12 @@
           <output name="d_out" num_pins="32" port_class="data_out"/>
           <clock name="rclk" num_pins="1" port_class="clock"/>
           <clock name="wclk" num_pins="1" port_class="clock"/>  -->
-	  
-	<pb_type blif_model=".subckt DP_RAM16K" name="mem_16K_dp" num_pb="1">
+
+        <pb_type blif_model=".subckt DP_RAM16K" name="mem_16K_dp" num_pb="1">
           <input  name="waddr" num_pins="9"/>
           <input  name="raddr" num_pins="9"/>
           <input  name="d_in"  num_pins="32"/>
-      	  <input  name="wenb"  num_pins="32"/>
+          <input  name="wenb"  num_pins="32"/>
           <input  name="wen"   num_pins="1"/>
           <input  name="ren"   num_pins="1"/>
           <output name="d_out" num_pins="32"/>
@@ -1294,7 +1298,7 @@
           <T_setup value="93e-12"     port="mem_16K_dp.waddr" clock="wclk"/>
           <T_setup value="108e-12"    port="mem_16K_dp.raddr" clock="rclk"/>
           <T_setup value="38e-12"     port="mem_16K_dp.d_in"  clock="wclk"/>
-	  <T_setup value="45e-12"     port="mem_16K_dp.wenb"  clock="wclk"/>
+          <T_setup value="45e-12"     port="mem_16K_dp.wenb"  clock="wclk"/>
           <T_setup value="116e-12"    port="mem_16K_dp.wen"   clock="wclk"/>
           <T_setup value="128e-12"    port="mem_16K_dp.ren"   clock="rclk"/>
           <T_clock_to_Q max="328e-12" port="mem_16K_dp.d_out" clock="rclk"/>
@@ -1343,23 +1347,23 @@
       <output name="o" num_pins="32"/>
       <mode name="QL_DSP_slice">
         <pb_type name="QL_DSP_slice" blif_model=".subckt QL_DSP" num_pb="1">
-	      <input  name="A"          num_pins="16"/>
-	      <input  name="B"          num_pins="16"/>
-	      <input  name="C"          num_pins="16"/>
-	      <input  name="D"          num_pins="16"/>
-	      <clock  name="CLK"         num_pins="1"/>
-	      <output name="CO"          num_pins="1"/>
-	      <output name="O"          num_pins="32"/>
+              <input  name="A"          num_pins="16"/>
+              <input  name="B"          num_pins="16"/>
+              <input  name="C"          num_pins="16"/>
+              <input  name="D"          num_pins="16"/>
+              <clock  name="CLK"         num_pins="1"/>
+              <output name="CO"          num_pins="1"/>
+              <output name="O"          num_pins="32"/>
               <!-- QL_DSP synthesized from 12nm cells -->
               <!-- Combinatorial delay was extracted from the mapped design -->
-              <delay_constant max="1.602e-9"  in_port="QL_DSP_slice.A" 		out_port="QL_DSP_slice.O"/>
-              <delay_constant max="1.602e-9"  in_port="QL_DSP_slice.B" 		out_port="QL_DSP_slice.O"/>
-              <delay_constant max="1.602e-9"  in_port="QL_DSP_slice.C" 		out_port="QL_DSP_slice.O"/>
-              <delay_constant max="1.602e-9"  in_port="QL_DSP_slice.D" 		out_port="QL_DSP_slice.O"/>
-              <delay_constant max="1.602e-9"  in_port="QL_DSP_slice.A" 		out_port="QL_DSP_slice.CO"/>
-              <delay_constant max="1.602e-9"  in_port="QL_DSP_slice.B" 		out_port="QL_DSP_slice.CO"/>
-              <delay_constant max="1.602e-9"  in_port="QL_DSP_slice.C" 		out_port="QL_DSP_slice.CO"/>
-              <delay_constant max="1.602e-9"  in_port="QL_DSP_slice.D" 		out_port="QL_DSP_slice.CO"/>
+              <delay_constant max="1.602e-9"  in_port="QL_DSP_slice.A"          out_port="QL_DSP_slice.O"/>
+              <delay_constant max="1.602e-9"  in_port="QL_DSP_slice.B"          out_port="QL_DSP_slice.O"/>
+              <delay_constant max="1.602e-9"  in_port="QL_DSP_slice.C"          out_port="QL_DSP_slice.O"/>
+              <delay_constant max="1.602e-9"  in_port="QL_DSP_slice.D"          out_port="QL_DSP_slice.O"/>
+              <delay_constant max="1.602e-9"  in_port="QL_DSP_slice.A"          out_port="QL_DSP_slice.CO"/>
+              <delay_constant max="1.602e-9"  in_port="QL_DSP_slice.B"          out_port="QL_DSP_slice.CO"/>
+              <delay_constant max="1.602e-9"  in_port="QL_DSP_slice.C"          out_port="QL_DSP_slice.CO"/>
+              <delay_constant max="1.602e-9"  in_port="QL_DSP_slice.D"          out_port="QL_DSP_slice.CO"/>
         </pb_type>
         <interconnect>
             <direct name="a2a" input="QL_DSP.a" output="QL_DSP_slice.A">
@@ -1385,7 +1389,7 @@
     </pb_type>
     <!-- Define QL_DSP end -->
   </complexblocklist>
-<layout>
+  <layout>
     <auto_layout aspect_ratio="1.0">
       <!--Perimeter of 'io' blocks with 'EMPTY' blocks at corners-->
       <perimeter type="io" priority="100"/>
@@ -1401,6 +1405,20 @@
       <col type="EMPTY"   startx="8"  starty="1" repeatx="14" priority="19"/>
     </auto_layout>
     <fixed_layout name="128x128" width="130" height="130">
+      <!--Perimeter of 'io' blocks with 'EMPTY' blocks at corners-->
+      <perimeter type="io" priority="100"/>
+      <corners type="EMPTY" priority="101"/>
+      <!--Fill with 'clb'-->
+      <fill type="clb" priority="10"/>
+      <!--Column of 'memory' with 'EMPTY' blocks wherever a 'memory' does not fit. Vertical offset by 1 for perimeter.-->
+      <!--CLB / Memory block ratio is 30. -->
+      <col type="memory"  startx="2"  starty="1" repeatx="14" priority="20"/>
+      <col type="EMPTY"   startx="2"  starty="1" repeatx="14" priority="19"/>
+      <!--Column of 'DSP' with 'EMPTY' blocks wherever a 'DSP' does not fit. Vertical offset by 1 for perimeter.-->
+      <col type="QL_DSP" startx="8"  starty="1" repeatx="14" priority="20"/>
+      <col type="EMPTY"   startx="8"  starty="1" repeatx="14" priority="19"/>
+    </fixed_layout>    
+    <fixed_layout name="116x116" width="118" height="118">
       <!--Perimeter of 'io' blocks with 'EMPTY' blocks at corners-->
       <perimeter type="io" priority="100"/>
       <corners type="EMPTY" priority="101"/>

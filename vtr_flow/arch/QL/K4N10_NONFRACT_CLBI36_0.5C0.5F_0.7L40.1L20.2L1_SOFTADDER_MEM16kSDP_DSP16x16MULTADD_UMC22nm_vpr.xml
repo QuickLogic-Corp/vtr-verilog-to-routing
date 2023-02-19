@@ -1330,29 +1330,29 @@ Authors: Xifan Tang
           in[2]. Such twisted connection is not expected.
           I[0] should be connected to in[0]
         -->
-        <complete name="crossbar1" input="clb.I4 clb.I3 fle[1:0].out fle[2:3].out" output="fle[9:0].in[0:0]">
+        <complete name="crossbar1" input="clb.I4 clb.I3 fle[1:0].out fle[2:3].out fle[8:8].out" output="fle[9:0].in[0:0]">
           <delay_constant max="2.48e-10" min="1.64e-10" in_port="clb.I4" out_port="fle[9:0].in[0:0]"/>
           <delay_constant max="2.48e-10" min="1.64e-10" in_port="clb.I3" out_port="fle[9:0].in[0:0]"/>
           <delay_constant max="2.34e-10" min="1.86e-10" in_port="fle[1:0].out" out_port="fle[9:0].in[0:0]"/>
-          <delay_constant max="2.34e-10" min="1.86e-10" in_port="fle[2:3].out" out_port="fle[9:0].in[0:0]"/>
+          <delay_constant max="2.34e-10" min="1.86e-10" in_port="fle[2:3].out fle[8:8].out" out_port="fle[9:0].in[0:0]"/>
         </complete>
-        <complete name="crossbar2" input="clb.I3 clb.I2 fle[2:3].out fle[4:5].out" output="fle[9:0].in[1:1]">
+        <complete name="crossbar2" input="clb.I3 clb.I2 fle[2:3].out fle[4:5].out fle[9:9].out" output="fle[9:0].in[1:1]">
           <delay_constant max="2.48e-10" min="1.64e-10" in_port="clb.I3" out_port="fle[9:0].in[1:1]"/>
           <delay_constant max="2.48e-10" min="1.64e-10" in_port="clb.I2" out_port="fle[9:0].in[1:1]"/>
           <delay_constant max="2.34e-10" min="1.86e-10" in_port="fle[2:3].out" out_port="fle[9:0].in[1:1]"/>
-          <delay_constant max="2.34e-10" min="1.86e-10" in_port="fle[4:5].out" out_port="fle[9:0].in[1:1]"/>
+          <delay_constant max="2.34e-10" min="1.86e-10" in_port="fle[4:5].out fle[9:9].out" out_port="fle[9:0].in[1:1]"/>
         </complete>
-        <complete name="crossbar3" input="clb.I2 clb.I1 fle[4:5].out fle[6:7].out" output="fle[9:0].in[2:2]">
+        <complete name="crossbar3" input="clb.I2 clb.I1 fle[4:5].out fle[6:7].out fle[8:8].out" output="fle[9:0].in[2:2]">
           <delay_constant max="2.48e-10" min="1.64e-10" in_port="clb.I2" out_port="fle[9:0].in[2:2]"/>
           <delay_constant max="2.48e-10" min="1.64e-10" in_port="clb.I1" out_port="fle[9:0].in[2:2]"/>
           <delay_constant max="2.34e-10" min="1.86e-10" in_port="fle[4:5].out" out_port="fle[9:0].in[2:2]"/>
-          <delay_constant max="2.34e-10" min="1.86e-10" in_port="fle[6:7].out" out_port="fle[9:0].in[2:2]"/>
+          <delay_constant max="2.34e-10" min="1.86e-10" in_port="fle[6:7].out fle[8:8].out" out_port="fle[9:0].in[2:2]"/>
         </complete>
-        <complete name="crossbar4" input="clb.I4 clb.I2 fle[6:7].out fle[8:9].out" output="fle[9:0].in[3:3]">
+        <complete name="crossbar4" input="clb.I4 clb.I2 fle[6:7].out fle[1:0].out fle[9:9].out" output="fle[9:0].in[3:3]">
           <delay_constant max="2.48e-10" min="1.64e-10" in_port="clb.I4" out_port="fle[9:0].in[3:3]"/>
           <delay_constant max="2.48e-10" min="1.64e-10" in_port="clb.I2" out_port="fle[9:0].in[3:3]"/>
           <delay_constant max="2.34e-10" min="1.86e-10" in_port="fle[1:0].out" out_port="fle[9:0].in[3:3]"/>
-          <delay_constant max="2.34e-10" min="1.86e-10" in_port="fle[6:7].out" out_port="fle[9:0].in[3:3]"/>
+          <delay_constant max="2.34e-10" min="1.86e-10" in_port="fle[6:7].out fle[9:9].out" out_port="fle[9:0].in[3:3]"/>
             <!-- TODO: Timing should be backannotated from post-PnR results -->
         </complete>
         <complete name="clks" input="clb.clk" output="fle[9:0].clk">
